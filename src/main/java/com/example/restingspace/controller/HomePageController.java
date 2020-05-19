@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomePageController {
-    @GetMapping("/index")
+    @GetMapping("/")
     public String sayIndex(){
         return "index";
     }
@@ -24,5 +24,4 @@ public class HomePageController {
         }
         return "login";
     }
-
 }

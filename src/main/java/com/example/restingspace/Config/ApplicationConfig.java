@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -29,6 +31,12 @@ public class ApplicationConfig {
         dataSource.setPassword("mypassword");
         return dataSource;
     }
+    @Bean
+    public MultipartResolver multipartResolver(){
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(10240000);
+        return multipartResolver;
+    }
 
     private final Properties gethibernateProperties(){
         Properties hibernateProperties = new Properties();
@@ -36,5 +44,4 @@ public class ApplicationConfig {
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return hibernateProperties;
     }
-
 }

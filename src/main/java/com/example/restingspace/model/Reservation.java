@@ -1,6 +1,7 @@
 package com.example.restingspace.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name ="reservation")
@@ -9,9 +10,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
-    private int year;
-    private int date;
+    private Date date;
     private int start_time;
     private int end_time;
     private long totalPrice;
@@ -25,6 +24,22 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Reservation(){
+        this.date = getDate();
+        this.start_time = 0;
+        this.end_time = 0;
+        status = 1;
+    }
+
+    public Reservation(Date date, int start_time, int end_time, Room room, User user){
+        this.date = date;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.room = room;
+        this.user = user;
+        status = 1;
+    }
 
     public Room getRoom(){
         return room;
@@ -46,19 +61,12 @@ public class Reservation {
         return id;
     }
 
-    public int getYear() {
-        return year;
-    }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

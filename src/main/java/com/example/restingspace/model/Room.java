@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="room")
 public class Room {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long rid;

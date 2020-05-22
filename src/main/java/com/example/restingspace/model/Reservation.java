@@ -1,11 +1,15 @@
 package com.example.restingspace.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
 @Table(name ="reservation")
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -13,9 +17,9 @@ public class Reservation {
     private Date date;
     private int start_time;
     private int end_time;
-    private long totalPrice;
     //status: 1-> Not expired; 2-> Expired
     private int status;
+    private Timestamp bookTime;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
@@ -27,8 +31,9 @@ public class Reservation {
 
     public Reservation(){
         this.date = getDate();
-        this.start_time = 0;
-        this.end_time = 0;
+        this.start_time = 6;
+        this.end_time = 6;
+        this.bookTime = new Timestamp(Calendar.getInstance().getTime().getTime());
         status = 1;
     }
 
@@ -38,6 +43,7 @@ public class Reservation {
         this.end_time = end_time;
         this.room = room;
         this.user = user;
+        this.bookTime = new Timestamp(Calendar.getInstance().getTime().getTime());
         status = 1;
     }
 
@@ -87,11 +93,7 @@ public class Reservation {
     }
 
     public long getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(long totalPrice) {
-        this.totalPrice = totalPrice;
+        return getRoom().getPrice()* (end_time - start_time);
     }
 
     public int getStatus() {

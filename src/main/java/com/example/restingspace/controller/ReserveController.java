@@ -9,11 +9,11 @@ public class ReserveController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping(consumes = "application/json", produces = "application/json",path="/reserve")
+    @PostMapping(path="/reserve")
     public void reserveRoom(@RequestBody Reservation reservation) {
         reservationService.addReservation(reservation);
     }
-    @DeleteMapping(consumes = "application/json", produces = "application/json", path="/cancelReserve/{reservationId}")
+    @DeleteMapping(path="/cancelReserve/{reservationId}")
     public void cancelReservedRoom(@PathVariable(value="reservationId") int reservationId) {
         reservationService.deleteReservation(reservationId);
     }

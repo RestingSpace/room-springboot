@@ -18,7 +18,7 @@ public class ReservationDao {
     private SessionFactory sessionFactory;
 
     public void addReservation(Reservation reservation){
-       Session session =null;
+        Session session =null;
 
         try{
            session = sessionFactory.openSession();

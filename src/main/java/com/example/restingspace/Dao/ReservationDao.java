@@ -1,7 +1,6 @@
 package com.example.restingspace.Dao;
 
 import com.example.restingspace.model.Reservation;
-import com.example.restingspace.model.Room;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class ReservationDao {
     private SessionFactory sessionFactory;
 
     public void addReservation(Reservation reservation){
-       Session session =null;
+        Session session =null;
 
         try{
            session = sessionFactory.openSession();

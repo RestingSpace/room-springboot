@@ -2,6 +2,7 @@ package com.example.restingspace.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name="users")
@@ -81,5 +82,16 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Reservation> reservation;
+
+    public Collection<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Collection<Reservation> reservation) {
+        this.reservation = reservation;
     }
 }

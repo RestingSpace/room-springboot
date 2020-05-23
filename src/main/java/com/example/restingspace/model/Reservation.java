@@ -1,5 +1,7 @@
 package com.example.restingspace.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
 import java.sql.Timestamp;
@@ -12,40 +14,25 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "reservation_id")
     private long id;
 
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private Date date;
+
     private int start_time;
     private int end_time;
     //status: 1-> Not expired; 2-> Expired
     private int status;
     private Timestamp bookTime;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Reservation(){
-        this.date = getDate();
-        this.start_time = 6;
-        this.end_time = 6;
-        this.bookTime = new Timestamp(Calendar.getInstance().getTime().getTime());
-        status = 1;
-    }
-
-    public Reservation(Date date, int start_time, int end_time, Room room, User user){
-        this.date = date;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.room = room;
-        this.user = user;
-        this.bookTime = new Timestamp(Calendar.getInstance().getTime().getTime());
-        status = 1;
-    }
 
     public Room getRoom(){
         return room;

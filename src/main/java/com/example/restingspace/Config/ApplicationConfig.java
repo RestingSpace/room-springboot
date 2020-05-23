@@ -29,15 +29,17 @@ public class ApplicationConfig {
         dataSource.setUrl("jdbc:mysql://laiproject-instance.cyhtts3twy2g.us-east-2.rds.amazonaws.com:3306/restingSpace?serverTimezone=UTC");
         dataSource.setUsername("admin");
         dataSource.setPassword("87654321");
-
         return dataSource;
     }
+
+    /*
     @Bean
     public MultipartResolver multipartResolver(){
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(10240000);
         return multipartResolver;
     }
+    */
 
     private final Properties gethibernateProperties(){
         Properties hibernateProperties = new Properties();

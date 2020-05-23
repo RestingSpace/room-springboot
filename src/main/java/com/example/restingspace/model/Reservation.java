@@ -3,9 +3,6 @@ package com.example.restingspace.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.AssertTrue;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -24,7 +21,6 @@ public class Reservation {
     private int end_time;
     //status: 1-> Not expired; 2-> Expired
     private int status;
-    private Timestamp bookTime;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "room_id")

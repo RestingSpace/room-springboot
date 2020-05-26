@@ -19,7 +19,9 @@ public class User implements Serializable {
     private String address;
     private String phone;
 
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private BillingAddress billingAddress;
+    
     public int getUid() {
         return uid;
     }
@@ -83,15 +85,29 @@ public class User implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+    public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
 
-    @OneToMany(mappedBy = "user")
-    private Collection<Reservation> reservation;
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+    //@OneToMany(mappedBy = "user")
+    private Reservation reservation;
 
-    public Collection<Reservation> getReservation() {
+    /*public Collection<Reservation> getReservation() {
         return reservation;
     }
 
     public void setReservation(Collection<Reservation> reservation) {
+        this.reservation = reservation;
+    }*/
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 }

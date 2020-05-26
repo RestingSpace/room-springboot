@@ -15,9 +15,11 @@ public class ReservationService {
     public List<Reservation> getAllReservations(){
         return reservationDao.getAllReservations();
     }
-
-    public void addReservation(Reservation reservation){
+   /* public void addReservation(Reservation reservation){
         reservationDao.addReservation(reservation);
+    }*/
+    public Reservation getReservationById(int reservationId){
+        return reservationDao.getReservationById(reservationId);
     }
 
     public void deleteReservation(int reservationId){

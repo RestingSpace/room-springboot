@@ -11,7 +11,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "reservation_id")
+   // @Column(name = "reservation_id")
     private long id;
 
     @JsonFormat(pattern = "YYYY-MM-dd")
@@ -19,6 +19,7 @@ public class Reservation {
 
     private int start_time;
     private int end_time;
+    private double totalPrice;
     //status: 1-> Not expired; 2-> Expired
     private int status;
 
@@ -75,8 +76,12 @@ public class Reservation {
         this.end_time = end_time;
     }
 
-    public long getTotalPrice() {
-        return getRoom().getPrice()* (end_time - start_time);
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getStatus() {

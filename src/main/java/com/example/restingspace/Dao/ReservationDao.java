@@ -34,7 +34,7 @@ public class ReservationDao {
         }
     }
 
-    public void cancelReservation(int reservationId){
+    public void cancelReservation(long reservationId){
         Session session =null;
 
         try{
@@ -51,6 +51,7 @@ public class ReservationDao {
             }
         }
     }
+
     public List<Reservation> getAllReservations(){
         List<Reservation> reservations = new ArrayList<Reservation>();
         try{

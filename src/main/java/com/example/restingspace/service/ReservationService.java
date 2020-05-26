@@ -20,7 +20,7 @@ public class ReservationService {
         reservationDao.addReservation(reservation);
     }
 
-    public void deleteReservation(int reservationId){
+    public void deleteReservation(long reservationId){
         reservationDao.cancelReservation(reservationId);
     }
 

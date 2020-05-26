@@ -11,10 +11,12 @@ public class ReserveController {
 
     @PostMapping(path="/reserve")
     public void reserveRoom(@RequestBody Reservation reservation) {
+
         reservationService.addReservation(reservation);
     }
+
     @DeleteMapping(path="/cancelReserve/{reservationId}")
-    public void cancelReservedRoom(@PathVariable(value="reservationId") int reservationId) {
+    public void cancelReservedRoom(@PathVariable(value="reservationId") long reservationId) {
         reservationService.deleteReservation(reservationId);
     }
 }

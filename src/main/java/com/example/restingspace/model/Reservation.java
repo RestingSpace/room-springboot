@@ -28,8 +28,8 @@ public class Reservation {
     private Date start_time;
 
     @Column(name="time_reserved_end")
-   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
-   @Temporal(TemporalType.TIME)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    @Temporal(TemporalType.TIME)
     @NotNull
     private Date end_time;
 

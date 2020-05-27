@@ -22,7 +22,12 @@ public class ReserveController {
     }
 
     @GetMapping(path="/reservations/{username}")
-    public @ResponseBody List<Reservation> cancelReservedRoom(@PathVariable(value="username") String username) {
+    public @ResponseBody List<Reservation> getReservationsbyU (@PathVariable(value="username") String username) {
         return reservationService.getAllReservations(username);
+    }
+
+    @GetMapping(path="/reservationsbyRoom/{room_id}")
+    public @ResponseBody List<Reservation> getReservationsbyR(@PathVariable(value="room_id") long room_id) {
+        return reservationService.getAllReservations(room_id);
     }
 }

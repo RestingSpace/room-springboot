@@ -27,11 +27,15 @@ public class ReservationService {
         List<Reservation> reserves = getAllReservations(roomid);
         Date start_time = reservation.getStart_time();
         Date end_time = reservation.getEnd_time();
-
+        Date date = reservation.getDate();
+        if(end_time.before(start_time)){
+            return null;
+        }
         for(Reservation prev:reserves){
-            if(prev.getRoom().getRid()==roomid){
+            if(prev.getDate().compareTo(date)==0){
                 if(prev.getStart_time().before(start_time) && start_time.before(prev.getEnd_time())||
-                        end_time.before(prev.getEnd_time()) && prev.getEnd_time().before(end_time)
+                        end_time.before(prev.getEnd_time()) && end_time.after(prev.getStart_time())
+                        //prev.getStart_time()==start_time || prev.getEnd_time()==end_time
                 ){
                     return null;
                 }

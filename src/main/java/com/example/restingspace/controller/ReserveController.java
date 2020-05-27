@@ -21,8 +21,8 @@ public class ReserveController {
         reservationService.deleteReservation(reservationId);
     }
 
-    @GetMapping(path="/reservations/{uId}")
-    public @ResponseBody List<Reservation> cancelReservedRoom(@PathVariable(value="uId") int uId) {
-        return reservationService.getAllReservations(uId);
+    @GetMapping(path="/reservations/{username}")
+    public @ResponseBody List<Reservation> cancelReservedRoom(@PathVariable(value="username") String username) {
+        return reservationService.getAllReservations(username);
     }
 }

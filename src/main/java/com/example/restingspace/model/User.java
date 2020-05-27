@@ -1,5 +1,7 @@
 package com.example.restingspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -86,6 +88,7 @@ public class User implements Serializable {
     }
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private Collection<Reservation> reservation;
 
     public Collection<Reservation> getReservation() {

@@ -12,8 +12,8 @@ public class ReservationService {
     @Autowired
     private ReservationDao reservationDao;
 
-    public List<Reservation> getAllReservations(int uid){
-        return reservationDao.getAllReservations(uid);
+    public List<Reservation> getAllReservations(String username){
+        return reservationDao.getAllReservations(username);
     }
 
     public void addReservation(Reservation reservation){

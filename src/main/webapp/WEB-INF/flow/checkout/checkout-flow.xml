@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+						  http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <var name="order" class="room-springboot.model.Order" />
+    
+    <action-state id="addReservationToOrder">
+        <evaluate expression="reservationDao.validate(requestParameters.reservationId)" result="order.reservation" />
+        <transition to="invalidReservationWarning" on-exception="java.io.IOException" />
+        <transition to="collectCustomerInfo" />
+    </action-state>
+ 
+    <view-state id="collectCustomerInfo" view="collectCustomerInfo.jsp" model="order">
+        <transition on="customerInfoCollected" to="orderConfirmation" />
+    </view-state>
+
+     <view-state id="orderConfirmation" view = "orderConfirmation.jsp"> 
+         <transition on="orderConfirmed" to="thankCustomer" /> 
+         <transition on="backToCollectCustomerInfo" to="collectCustomerInfo" /> 
+     </view-state> 
+
+    <view-state id="thankCustomer" model="order">
+        <transition to="endState" />
+    </view-state>
+
+    <end-state id="endState" />
+
+    <view-state id="invalidReservationWarning">
+        <transition to="endState" />
+    </view-state>
+
+    <end-state id="cancelCheckout" view="checkOutCancelled.jsp" />
+
+    <global-transitions>
+        <transition on="cancel" to="cancelCheckout" />
+    </global-transitions>
+
+</flow>

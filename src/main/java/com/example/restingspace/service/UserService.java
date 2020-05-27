@@ -5,6 +5,8 @@ import com.example.restingspace.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -18,4 +20,9 @@ public class UserService {
     public User getUserByUsername(String username){
         return userDao.getUserByUsername(username);
     }
+
+    public List<User> getAllUsers(){
+        return userDao.getAllUsers();
+    }
+
 }

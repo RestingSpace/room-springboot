@@ -1,6 +1,7 @@
 package com.example.restingspace.Dao;
 
 import com.example.restingspace.model.Reservation;
+import com.example.restingspace.model.Room;
 import com.example.restingspace.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -69,4 +70,21 @@ public class ReservationDao {
         return reservations;
     }
 
+    public List<Reservation> getAllReservations(long roomid){
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        try{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
+            Root<Room> root = criteriaQuery.from(Room.class);
+            Join<Room, Reservation> reserves = root.join("reservation");
+            criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("rid"), roomid));
+            reservations = session.createQuery(criteriaQuery).getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return reservations;
+    }
 }

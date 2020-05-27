@@ -12,8 +12,8 @@ public class ReserveController {
     private ReservationService reservationService;
 
     @PostMapping(path="/reserve")
-    public void reserveRoom(@RequestBody Reservation reservation) {
-        reservationService.addReservation(reservation);
+    public @ResponseBody Reservation reserveRoom(@RequestBody Reservation reservation) {
+        return reservationService.addReservation(reservation);
     }
 
     @DeleteMapping(path="/cancelReserve/{reservationId}")

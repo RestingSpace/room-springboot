@@ -2,9 +2,11 @@ package com.example.restingspace.service;
 
 import com.example.restingspace.Dao.ReservationDao;
 import com.example.restingspace.model.Reservation;
+import com.example.restingspace.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,11 +17,28 @@ public class ReservationService {
     public List<Reservation> getAllReservations(String username){
         return reservationDao.getAllReservations(username);
     }
+    public List<Reservation> getAllReservations(long roomid){
+        return reservationDao.getAllReservations(roomid);
+    }
 
-    public void addReservation(Reservation reservation){
+    public Reservation addReservation(Reservation reservation){
+        Room room = reservation.getRoom();
+        long roomid = room.getRid();
+        List<Reservation> reserves = getAllReservations(roomid);
+        Date start_time = reservation.getStart_time();
+        Date end_time = reservation.getEnd_time();
 
-
+        for(Reservation prev:reserves){
+            if(prev.getRoom().getRid()==roomid){
+                if(prev.getStart_time().before(start_time) && start_time.before(prev.getEnd_time())||
+                        end_time.before(prev.getEnd_time()) && prev.getEnd_time().before(end_time)
+                ){
+                    return null;
+                }
+            }
+        }
         reservationDao.addReservation(reservation);
+        return reservation;
     }
 
     public void deleteReservation(long reservationId){

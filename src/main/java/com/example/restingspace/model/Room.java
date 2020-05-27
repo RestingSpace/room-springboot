@@ -1,6 +1,8 @@
 package com.example.restingspace.model;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,8 @@ public class Room {
     private String location;
     private int price;
     private long size;
+    @Transient
+    private MultipartFile roomImage;
 
     public long getRid() {
         return rid;
@@ -36,7 +40,6 @@ public class Room {
         return size;
     }
 
-
     public boolean isValid() {
         return isValid;
     }
@@ -45,4 +48,11 @@ public class Room {
         isValid = valid;
     }
 
+    public MultipartFile getRoomImage() {
+        return roomImage;
+    }
+
+    public void setRoomImage(MultipartFile roomImage) {
+        this.roomImage = roomImage;
+    }
 }

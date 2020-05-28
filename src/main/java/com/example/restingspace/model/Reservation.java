@@ -17,19 +17,16 @@ public class Reservation {
 
     @Column(name="date_reserved")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
-    @Temporal(TemporalType.DATE)
     @NotNull
     private Date date;
 
     @Column(name="time_reserved_start")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
-    @Temporal(TemporalType.TIME)
     @NotNull
     private Date start_time;
 
     @Column(name="time_reserved_end")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
-    @Temporal(TemporalType.TIME)
     @NotNull
     private Date end_time;
 

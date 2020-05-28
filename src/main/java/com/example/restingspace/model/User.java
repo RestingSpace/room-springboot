@@ -98,4 +98,5 @@ public class User implements Serializable {
     public void setReservation(Collection<Reservation> reservation) {
         this.reservation = reservation;
     }
+
 }

@@ -33,9 +33,9 @@ public class ReservationService {
         }
         for(Reservation prev:reserves){
             if(prev.getDate().compareTo(date)==0){
-                if(prev.getStart_time().before(start_time) && start_time.before(prev.getEnd_time())||
-                        end_time.before(prev.getEnd_time()) && end_time.after(prev.getStart_time())
-                        //prev.getStart_time()==start_time || prev.getEnd_time()==end_time
+                if(prev.getStart_time().before(start_time) && start_time.before(prev.getEnd_time())
+                        ||end_time.before(prev.getEnd_time()) && end_time.after(prev.getStart_time())
+                        ||prev.getStart_time()==start_time || prev.getEnd_time()==end_time
                 ){
                     return null;
                 }

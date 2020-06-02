@@ -21,6 +21,13 @@ public class ReservationService {
         return reservationDao.getAllReservations(roomid);
     }
 
+   /* public void addReservation(Reservation reservation){
+        reservationDao.addReservation(reservation);
+    }*/
+    public Reservation getReservationById(int reservationId){
+        return reservationDao.getReservationById(reservationId);
+
+
     public Reservation addReservation(Reservation reservation){
         Room room = reservation.getRoom();
         long roomid = room.getRid();

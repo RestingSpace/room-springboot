@@ -35,13 +35,13 @@ public class RoomDao {
         }
     }
 
-    public void deleteRoom(int roomId){
+    public void deleteRoom(int rid){
         Session session =null;
 
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = (Room) session.get(Room.class, roomId);
+            Room room = session.get(Room.class, rid);
             session.delete(room);
             session.getTransaction().commit();
         }catch(Exception e){
@@ -69,11 +69,11 @@ public class RoomDao {
             }
         }
     }
-    public Room getRoom(int roomId){
+    public Room getRoom(int rid){
         try{
             Session session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = (Room) session.get(Room.class, roomId);
+            Room room = session.get(Room.class, rid);
             session.getTransaction().commit();
             return room;
         }catch(Exception e){
@@ -82,8 +82,8 @@ public class RoomDao {
         return null;
     }
 
-    public List<Room> getAllRoom(){
-        List<Room> rooms = new ArrayList<Room>();
+    public List<Room> getAllRooms(){
+        List<Room> rooms = new ArrayList<>();
         try{
             Session session = sessionFactory.openSession();
             session.beginTransaction();

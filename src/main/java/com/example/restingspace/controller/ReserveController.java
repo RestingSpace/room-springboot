@@ -1,5 +1,6 @@
 package com.example.restingspace.controller;
 import com.example.restingspace.model.Reservation;
+
 import com.example.restingspace.model.Room;
 import com.example.restingspace.model.User;
 import com.example.restingspace.service.ReservationService;
@@ -7,11 +8,11 @@ import com.example.restingspace.service.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.Column;
-import java.util.Date;
-import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class ReserveController {

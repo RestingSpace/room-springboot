@@ -1,6 +1,7 @@
 package com.example.restingspace.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,17 +12,27 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-   // @Column(name = "reservation_id")
+    @Column(name = "reservation_id")
     private long id;
 
-    @JsonFormat(pattern = "YYYY-MM-dd")
+    @Column(name="date_reserved")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
+    @NotNull
     private Date date;
 
-    private int start_time;
-    private int end_time;
-    private double totalPrice;
+    @Column(name="time_reserved_start")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    @NotNull
+    private Date start_time;
+
+    @Column(name="time_reserved_end")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    @NotNull
+    private Date end_time;
+
     //status: 1-> Not expired; 2-> Expired
     private int status;
+    private int totalPrice;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "room_id")
@@ -51,38 +62,31 @@ public class Reservation {
         return id;
     }
 
+    public Date getDate() { return date; }
 
-    public Date getDate() {
-        return date;
-    }
+    public void setDate(Date date) { this.date = date; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getStart_time() {
+    public Date getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(int start_time) {
+    public void setStart_time(Date start_time) {
         this.start_time = start_time;
     }
 
-    public int getEnd_time() {
+    public Date getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(int end_time) {
+    public void setEnd_time(Date end_time) {
         this.end_time = end_time;
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+    public void setTotalPrice(int price) { this.totalPrice = price; }
 
     public int getStatus() {
         return status;

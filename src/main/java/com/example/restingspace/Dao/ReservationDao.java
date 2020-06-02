@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import java.io.IOException;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +22,72 @@ public class ReservationDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-  //LW: our logic equivalent to combining cartDao and salesOrderDao, so here we have only ReservationDao to include all the method.
-  //LW: A little bit messy here but functional...
-    /* public void addReservation(Reservation reservation){
+    public void addReservation(Reservation reservation){
+        Session session =null;
+
+        try{
+           session = sessionFactory.openSession();
+           session.beginTransaction();
+           session.save(reservation);
+           session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+    }
+
+    public void cancelReservation(long reservationId){
         Session session =null;
 
          try{
             session = sessionFactory.openSession();
             session.beginTransaction();
             session.save(reservation);
+
+            Reservation reservation = (Reservation) session.get(Reservation.class, reservationId);
+            session.delete(reservation);
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+    }
+
+    public List<Reservation> getAllReservations(String username){
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        try{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
+            Root<User> root = criteriaQuery.from(User.class);
+            Join<User, Reservation> reserves = root.join("reservation");
+            criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("username"), username));
+            reservations = session.createQuery(criteriaQuery).getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return reservations;
+    }
+
+    public List<Reservation> getAllReservations(long roomid){
+        List<Reservation> reservations = new ArrayList<Reservation>();
+        try{
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
+            Root<Room> root = criteriaQuery.from(Room.class);
+            Join<Room, Reservation> reserves = root.join("reservation");
+            criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("rid"), roomid));
+            reservations = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();
          }catch(Exception e){
              e.printStackTrace();
@@ -38,7 +96,8 @@ public class ReservationDao {
                  session.close();
              }
          }
-     }*/
+     }
+  
      public Reservation getReservationById(int reservationId) {
      	Reservation reservation = null;
  		try (Session session = sessionFactory.openSession()) {

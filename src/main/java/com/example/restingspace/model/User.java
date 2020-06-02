@@ -1,5 +1,7 @@
 package com.example.restingspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,6 +12,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 561655616186161661L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private int uid;
     private String username;
     private String password;
@@ -90,11 +93,14 @@ public class User implements Serializable {
 		return billingAddress;
 	}
 
+
 	public void setBillingAddress(BillingAddress billingAddress) {
 		this.billingAddress = billingAddress;
 	}
-    //@OneToMany(mappedBy = "user")
-    private Reservation reservation;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Collection<Reservation> reservation;
 
     /*public Collection<Reservation> getReservation() {
         return reservation;
@@ -110,4 +116,5 @@ public class User implements Serializable {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
 }

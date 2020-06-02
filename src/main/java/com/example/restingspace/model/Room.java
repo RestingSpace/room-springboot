@@ -1,9 +1,12 @@
 package com.example.restingspace.model;
 
-
 import org.springframework.web.multipart.MultipartFile;
+ 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name="room")
@@ -19,6 +22,10 @@ public class Room {
     private long size;
     @Transient
     private MultipartFile roomImage;
+
+    @OneToMany(mappedBy = "room")
+    @JsonIgnore
+    private Collection<Reservation> reservation;
 
     public long getRid() {
         return rid;

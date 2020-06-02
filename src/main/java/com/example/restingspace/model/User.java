@@ -108,7 +108,7 @@ public class User implements Serializable {
 
     public void setReservation(Collection<Reservation> reservation) {
         this.reservation = reservation;
-    }*/
+    }
     public Reservation getReservation() {
         return reservation;
     }
@@ -116,5 +116,5 @@ public class User implements Serializable {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
-
+    */
 }

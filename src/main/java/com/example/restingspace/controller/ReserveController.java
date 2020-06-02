@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @RestController
 public class ReserveController {
     @Autowired
@@ -50,7 +52,8 @@ public class ReserveController {
     }
 
     @GetMapping(path="/reservationsbyRoom/{room_id}")
-    public @ResponseBody List<Reservation> getReservationsbyR(@PathVariable(value="room_id") long room_id) {
+    public @ResponseBody
+    List<Reservation> getReservationsbyR(@PathVariable(value="room_id") long room_id) {
         return reservationService.getAllReservations(room_id);
     }
 }

@@ -3,6 +3,7 @@ package com.example.restingspace.Dao;
 import com.example.restingspace.model.Reservation;
 import com.example.restingspace.model.Room;
 
+import com.example.restingspace.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,26 +31,6 @@ public class ReservationDao {
            session.beginTransaction();
            session.save(reservation);
            session.getTransaction().commit();
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            if(session!=null){
-                session.close();
-            }
-        }
-    }
-
-    public void cancelReservation(long reservationId){
-        Session session =null;
-
-         try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            session.save(reservation);
-
-            Reservation reservation = (Reservation) session.get(Reservation.class, reservationId);
-            session.delete(reservation);
-            session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -91,12 +72,9 @@ public class ReservationDao {
             session.getTransaction().commit();
          }catch(Exception e){
              e.printStackTrace();
-         }finally{
-             if(session!=null){
-                 session.close();
-             }
          }
-     }
+        return reservations;
+    }
   
      public Reservation getReservationById(int reservationId) {
      	Reservation reservation = null;
@@ -110,7 +88,7 @@ public class ReservationDao {
  		return reservation;
  	}
 
-     public void cancelReservation(int reservationId){
+     public void cancelReservation(long reservationId){
          Session session =null;
 
          try{
@@ -127,27 +105,11 @@ public class ReservationDao {
              }
          }
      }
-     //LW: this is for admin use? 
-     public List<Reservation> getAllReservations(){
-         List<Reservation> reservations = new ArrayList<Reservation>();
-         try{
-             Session session = sessionFactory.openSession();
-             session.beginTransaction();
-             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-             CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
-             Root<Reservation> root = criteriaQuery.from(Reservation.class);
-             criteriaQuery.select(root);
-             reservations = session.createQuery(criteriaQuery).getResultList();
-             session.getTransaction().commit();
-         }catch(Exception e){
-             e.printStackTrace();
-         }
-         return reservations;
-     }
-     //reserve time can't be less than 5min and other rule, tbd
+
+     /*reserve time can't be less than 5min and other rule, tbd
      public Reservation validate(int reservationId) throws IOException {
      	Reservation reservation = getReservationById(reservationId);
- 		if (reservation == null || (reservation.getEnd_time() - reservation.getStart_time() < 5)) {
+ 		if ((reservation == null) || ((reservation.getEnd_time() - reservation.getStart_time()) < 5)) {
  			throw new IOException(reservationId + "");
  		}
  		update(reservation);
@@ -175,5 +137,5 @@ public class ReservationDao {
  	
  		return total;
  	}
-
+*/
 }

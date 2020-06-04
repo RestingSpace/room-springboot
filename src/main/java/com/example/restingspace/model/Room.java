@@ -1,21 +1,18 @@
 package com.example.restingspace.model;
 
 import org.springframework.web.multipart.MultipartFile;
- 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.io.Serializable;
 
 @Entity
-@Table(name="room")
-public class Room {
+@Table(name="rooms")
+public class Room implements Serializable {
 
+    private static final long serialVersionUID = 1910400635577541899L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long rid;
-
+    private int rid;
     private boolean isValid;
     private String location;
     private int price;
@@ -23,15 +20,11 @@ public class Room {
     @Transient
     private MultipartFile roomImage;
 
-    @OneToMany(mappedBy = "room")
-    @JsonIgnore
-    private Collection<Reservation> reservation;
-
     public long getRid() {
         return rid;
     }
 
-    public void setRid(long rid) {
+    public void setRid(int rid) {
         this.rid = rid;
     }
 

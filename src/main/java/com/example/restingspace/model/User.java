@@ -8,8 +8,6 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = 561655616186161661L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int uid;
     private String username;
     private String password;
     private String firstName;
@@ -17,15 +15,8 @@ public class User implements Serializable {
     private String email;
     private String address;
     private String phone;
-
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
+    @OneToOne
+    private BillingAddress billingAddress;
 
     public String getUsername() {
         return username;
@@ -81,5 +72,13 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -16,8 +17,7 @@ public class UserDao {
     private SessionFactory sessionFactory;
 
     public void addUser(User user) {
-        Session session = null;
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
@@ -27,7 +27,6 @@ public class UserDao {
     }
 
     public User getUserByUsername(String username) {
-
         User user = null;
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -41,5 +40,21 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public List<User> getAllUsers(){
+        List<User> result = null;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
+            Root<User> root = criteriaQuery.from(User.class);
+            criteriaQuery.select(root);
+            result = session.createQuery(criteriaQuery).getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

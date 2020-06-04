@@ -1,10 +1,7 @@
 package com.example.restingspace.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 
 @Entity
 @Table(name="users")
@@ -12,7 +9,6 @@ public class User implements Serializable {
     private static final long serialVersionUID = 561655616186161661L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
     private int uid;
     private String username;
     private String password;
@@ -22,9 +18,7 @@ public class User implements Serializable {
     private String address;
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private BillingAddress billingAddress;
-    
+
     public int getUid() {
         return uid;
     }
@@ -88,33 +82,4 @@ public class User implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
-    public BillingAddress getBillingAddress() {
-		return billingAddress;
-	}
-
-
-	public void setBillingAddress(BillingAddress billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private Collection<Reservation> reservation;
-
-    /*public Collection<Reservation> getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Collection<Reservation> reservation) {
-        this.reservation = reservation;
-    }
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-    */
 }

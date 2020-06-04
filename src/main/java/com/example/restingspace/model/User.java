@@ -43,11 +43,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getFirstNmae() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstNmae(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 

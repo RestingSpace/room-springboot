@@ -42,7 +42,7 @@ public class UserDao {
     }
 
     public User getUserByUsername(String username) {
-        User user = null;
+        List<User> result = null;
         Session session = null;
         try {
             session = sessionFactory.openSession();
@@ -51,7 +51,7 @@ public class UserDao {
             CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
             Root<User> root = criteriaQuery.from(User.class);
             criteriaQuery.select(root).where(builder.equal(root.get("username"), username));
-            user = session.createQuery(criteriaQuery).getSingleResult();
+            result = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class UserDao {
                 session.close();
             }
         }
-        return user;
+        return (result == null || result.isEmpty()) ? null : result.get(0);
     }
 
     public List<User> getAllUsers() {

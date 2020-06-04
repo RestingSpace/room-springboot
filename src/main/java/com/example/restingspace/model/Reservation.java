@@ -1,9 +1,9 @@
 package com.example.restingspace.model;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -14,24 +14,24 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
     private long id;
-
-    @Column(name="date_reserved")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
-    @NotNull
-    private Date date;
-
+    /*
+        @Column(name="date_reserved")
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
+        @NotNull
+        private Date date;
+    */
     @Column(name="time_reserved_start")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
-    private Date start_time;
+    private Timestamp start_time;
 
     @Column(name="time_reserved_end")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
-    private Date end_time;
+    private Timestamp end_time;
 
     //status: 1-> Not expired; 2-> Expired
-    private int status;
+    //private int status;
     private int totalPrice;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -61,39 +61,43 @@ public class Reservation {
     public long getId() {
         return id;
     }
+    /*
+        public Date getDate() { return date; }
 
-    public Date getDate() { return date; }
-
-    public void setDate(Date date) { this.date = date; }
-
-    public Date getStart_time() {
+        public void setDate(Date date) { this.date = date; }
+    */
+    public Timestamp getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(Date start_time) {
+    public void setStart_time(Timestamp start_time) {
         this.start_time = start_time;
     }
 
-    public Date getEnd_time() {
+    public Timestamp getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(Date end_time) {
+    public void setEnd_time(Timestamp end_time) {
         this.end_time = end_time;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
+    public int getTotalPrice() { return totalPrice; }
 
     public void setTotalPrice(int price) { this.totalPrice = price; }
-
+/*
     public int getStatus() {
+        Timestamp cur_time = new Timestamp(System.currentTimeMillis());
+        if(cur_time.after(end_time)){
+            status= 2;
+        }else{
+            status = 1;
+        }
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
     }
-
+*/
 }

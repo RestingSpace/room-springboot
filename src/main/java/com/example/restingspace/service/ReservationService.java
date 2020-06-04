@@ -16,7 +16,7 @@ public class ReservationService {
         return reservationDao.getAllReservations(username);
     }
 
-    public List<Reservation> getAllReservations(long roomid) {
+    public List<Reservation> getAllReservations(int roomid) {
         return reservationDao.getAllReservations(roomid);
     }
 

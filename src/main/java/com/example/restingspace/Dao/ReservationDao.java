@@ -27,10 +27,10 @@ public class ReservationDao {
         Session session =null;
 
         try{
-           session = sessionFactory.openSession();
-           session.beginTransaction();
-           session.save(reservation);
-           session.getTransaction().commit();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(reservation);
+            session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -58,7 +58,7 @@ public class ReservationDao {
         return reservations;
     }
 
-    public List<Reservation> getAllReservations(long roomid){
+    public List<Reservation> getAllReservations(int roomid){
         List<Reservation> reservations = new ArrayList<Reservation>();
         try{
             Session session = sessionFactory.openSession();
@@ -70,41 +70,41 @@ public class ReservationDao {
             criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("rid"), roomid));
             reservations = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();
-         }catch(Exception e){
-             e.printStackTrace();
-         }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return reservations;
     }
-  
-     public Reservation getReservationById(int reservationId) {
-     	Reservation reservation = null;
- 		try (Session session = sessionFactory.openSession()) {
- 			session.beginTransaction();
- 			reservation = (Reservation) session.get(Reservation.class, reservationId);
- 			session.getTransaction().commit();
- 		} catch (Exception e) {
- 			e.printStackTrace();
- 		}
- 		return reservation;
- 	}
 
-     public void cancelReservation(long reservationId){
-         Session session =null;
+    public Reservation getReservationById(int reservationId) {
+        Reservation reservation = null;
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            reservation = (Reservation) session.get(Reservation.class, reservationId);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reservation;
+    }
 
-         try{
-             session = sessionFactory.openSession();
-             session.beginTransaction();
-             Reservation reservation = (Reservation) session.get(Reservation.class, reservationId);
-             session.delete(reservation);
-             session.getTransaction().commit();
-         }catch(Exception e){
-             e.printStackTrace();
-         }finally{
-             if(session!=null){
-                 session.close();
-             }
-         }
-     }
+    public void cancelReservation(long reservationId){
+        Session session =null;
+
+        try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Reservation reservation = (Reservation) session.get(Reservation.class, reservationId);
+            session.delete(reservation);
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+    }
 
      /*reserve time can't be less than 5min and other rule, tbd
      public Reservation validate(int reservationId) throws IOException {
@@ -115,11 +115,9 @@ public class ReservationDao {
  		update(reservation);
  		return reservation;
  	}
-
  	private void update(Reservation reservation) {
  		double total = getReservationTotal(reservation);
  		reservation.setTotalPrice(total);
-
  		try (Session session = sessionFactory.openSession()) {
  			session.beginTransaction();
  			session.saveOrUpdate(reservation);
@@ -128,13 +126,12 @@ public class ReservationDao {
  			e.printStackTrace();
  		}
  	}
-
  	private double getReservationTotal(Reservation reservation) {
  		double total = 0;
  		Room room = reservation.getRoom();
- 		
+
  		total = room.getPrice() *(reservation.getEnd_time() - reservation.getStart_time());
- 	
+
  		return total;
  	}
 */

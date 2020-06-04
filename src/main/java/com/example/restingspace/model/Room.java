@@ -20,7 +20,7 @@ public class Room implements Serializable {
     @Transient
     private MultipartFile roomImage;
 
-    public long getRid() {
+    public int getRid() {
         return rid;
     }
 

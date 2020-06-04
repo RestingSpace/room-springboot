@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class RoomService {
     @Autowired
-    private static RoomDao roomDao;
+    private RoomDao roomDao;
 
     public List<Room> getAllRooms() {
         return roomDao.getAllRooms();
     }
 
-    public static Room getRoom(long rid) {
-        return roomDao.getRoom((int) rid);
+    public Room getRoom(int rid) {
+        return roomDao.getRoom(rid);
     }
 
     public void deleteRoom(long roomId) {

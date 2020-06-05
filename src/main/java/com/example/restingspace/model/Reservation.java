@@ -32,7 +32,7 @@ public class Reservation {
 
     //status: 1-> Not expired; 2-> Expired
     //private int status;
-    private int totalPrice;
+    private double totalPrice;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "room_id")
@@ -82,9 +82,9 @@ public class Reservation {
         this.end_time = end_time;
     }
 
-    public int getTotalPrice() { return totalPrice; }
+    public double getTotalPrice() { return totalPrice; }
 
-    public void setTotalPrice(int price) { this.totalPrice = price; }
+    public void setTotalPrice(double price) { this.totalPrice = price; }
 /*
     public int getStatus() {
         Timestamp cur_time = new Timestamp(System.currentTimeMillis());

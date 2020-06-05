@@ -57,11 +57,11 @@ public class Room implements Serializable {
         isValid = valid;
     }
 
-    public String getRoomImage() {
+    public String getRoomImageURL() {
         return roomImageURL;
     }
 
-    public void setRoomImage(String roomImageURL) {
+    public void setRoomImageURL(String roomImageURL) {
         this.roomImageURL = roomImageURL;
     }
 }

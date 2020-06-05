@@ -1,5 +1,6 @@
 package com.example.restingspace.controller;
 
+import com.example.restingspace.model.Reservation;
 import com.example.restingspace.model.User;
 import com.example.restingspace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class UserController {
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/getReservationsByUsername/{username}")
+    public List<Reservation> getReservationsByUsername(@PathVariable String username){
+        return userService.getReservationsByUsername(username);
     }
 }

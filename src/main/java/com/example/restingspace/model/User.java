@@ -2,6 +2,7 @@ package com.example.restingspace.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -17,6 +18,9 @@ public class User implements Serializable {
     private String phone;
     @OneToOne
     private BillingAddress billingAddress;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Reservation> reservations;
 
     public String getUsername() {
         return username;
@@ -80,5 +84,13 @@ public class User implements Serializable {
 
     public void setBillingAddress(BillingAddress billingAddress) {
         this.billingAddress = billingAddress;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

@@ -1,26 +1,23 @@
 package com.example.restingspace.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="rooms")
+@Table(name="room")
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1910400635577541899L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int rid;
+    private long rid;
     private boolean isValid;
     private String location;
     private int price;
     private long size;
-    @Transient
-    private MultipartFile roomImage;
+    private String roomImageURL;
 
-    public int getRid() {
+    public long getRid() {
         return rid;
     }
 
@@ -32,12 +29,24 @@ public class Room implements Serializable {
         return location;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public int getPrice() {
         return price;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public long getSize() {
         return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public boolean isValid() {
@@ -48,11 +57,11 @@ public class Room implements Serializable {
         isValid = valid;
     }
 
-    public MultipartFile getRoomImage() {
-        return roomImage;
+    public String getRoomImageURL() {
+        return roomImageURL;
     }
 
-    public void setRoomImage(MultipartFile roomImage) {
-        this.roomImage = roomImage;
+    public void setRoomImageURL(String roomImageURL) {
+        this.roomImageURL = roomImageURL;
     }
 }

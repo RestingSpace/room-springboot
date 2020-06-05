@@ -1,6 +1,7 @@
 package com.example.restingspace.service;
 
 import com.example.restingspace.Dao.UserDao;
+import com.example.restingspace.model.Reservation;
 import com.example.restingspace.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userDao.getAllUsers();
+    }
+
+    public List<Reservation> getReservationsByUsername(String username){
+        return userDao.getReservationsByUsername(username);
     }
 
 }

@@ -42,8 +42,9 @@ public class ReservationDao {
 
     public List<Reservation> getAllReservations(String username){
         List<Reservation> reservations = new ArrayList<Reservation>();
+        Session session =null;
         try{
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
@@ -54,14 +55,19 @@ public class ReservationDao {
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return reservations;
     }
 
     public List<Reservation> getAllReservations(int roomid){
         List<Reservation> reservations = new ArrayList<Reservation>();
+        Session session =null;
         try{
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
@@ -72,18 +78,28 @@ public class ReservationDao {
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return reservations;
     }
 
     public Reservation getReservationById(int reservationId) {
         Reservation reservation = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session =null;
+        try {
+            session = sessionFactory.openSession();
             session.beginTransaction();
             reservation = (Reservation) session.get(Reservation.class, reservationId);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return reservation;
     }

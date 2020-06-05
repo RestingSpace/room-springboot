@@ -70,22 +70,28 @@ public class RoomDao {
         }
     }
     public Room getRoom(int rid){
+        Session session =null;
         try{
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
             Room room = session.get(Room.class, rid);
             session.getTransaction().commit();
             return room;
         }catch(Exception e){
             e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return null;
     }
 
     public List<Room> getAllRooms(){
         List<Room> rooms = new ArrayList<>();
+        Session session =null;
         try{
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Room> criteriaQuery = criteriaBuilder.createQuery(Room.class);
@@ -95,6 +101,10 @@ public class RoomDao {
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
+        }finally{
+            if(session!=null){
+                session.close();
+            }
         }
         return rooms;
     }

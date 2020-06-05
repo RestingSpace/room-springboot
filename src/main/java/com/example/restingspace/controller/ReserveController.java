@@ -37,10 +37,10 @@ public class ReserveController {
         reservation.setStart_time(reservationbody.getStart_time());
         reservation.setEnd_time(reservationbody.getEnd_time());
         String username = reservationbody.getUsername();
-        //int rid = reservationbody.getRid();
+        int rid = reservationbody.getRid();
         User user = userService.getUserByUsername(username);
-        //Room room = roomService.getRoom(rid);
-        //reservation.setRoom(room);
+        Room room = roomService.getRoom(rid);
+        reservation.setRoom(room);
         reservation.setUser(user);
         return reservationService.addReservation(reservation);
     }

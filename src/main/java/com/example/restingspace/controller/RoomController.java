@@ -6,17 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URI;
 import java.util.List;
+
 
 @RestController
 public class RoomController {
@@ -35,37 +30,21 @@ public class RoomController {
     }
 
     @PostMapping("/room/addRoom")
-    public void addRoom(Room room, BindingResult result) {
+    public ResponseEntity<Object> addRoom(@RequestBody Room room) {
+        Integer rid = roomService.getAllRooms().size() + 1;
+        room.setRid(rid);
 
-        if (result.hasErrors()) {
-            return;
-        }
         roomService.addRoom(room);
-        MultipartFile image = room.getRoomImage();
-        if (image != null && !image.isEmpty()) {
-            // Mac
-            Path path = Paths.get("/Users/xxx/rooms/" + room.getRid() + ".jpg");
 
-            try {
-                image.transferTo(new File(path.toString()));
-            } catch (IllegalStateException | IOException e) {
-                e.printStackTrace();
-            }
-        }
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand(room.getRid())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PostMapping("/delete/{rid}")
     public void deleteRoom(@PathVariable(value = "rid") int rid) {
-        // for MAC
-        Path path = Paths.get("/Users/xxx/rooms/" + rid + ".jpg");
-
-        if (Files.exists(path)) {
-            try {
-                Files.delete(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         roomService.deleteRoom(rid);
     }
 

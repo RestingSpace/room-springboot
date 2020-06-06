@@ -3,23 +3,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Entity
 @Table(name ="reservations")
-public class Reservation {
+public class Reservation implements Serializable {
 
+    private static final long serialVersionUID = 8689624510061221302L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
     private long id;
-    /*
-        @Column(name="date_reserved")
-        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone = "UTC")
-        @NotNull
-        private Date date;
-    */
+
     @Column(name="time_reserved_start")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
@@ -30,15 +27,13 @@ public class Reservation {
     @NotNull
     private Timestamp end_time;
 
-    //status: 1-> Not expired; 2-> Expired
-    //private int status;
     private double totalPrice;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -61,11 +56,7 @@ public class Reservation {
     public long getId() {
         return id;
     }
-    /*
-        public Date getDate() { return date; }
 
-        public void setDate(Date date) { this.date = date; }
-    */
     public Timestamp getStart_time() {
         return start_time;
     }
@@ -85,19 +76,5 @@ public class Reservation {
     public double getTotalPrice() { return totalPrice; }
 
     public void setTotalPrice(double price) { this.totalPrice = price; }
-/*
-    public int getStatus() {
-        Timestamp cur_time = new Timestamp(System.currentTimeMillis());
-        if(cur_time.after(end_time)){
-            status= 2;
-        }else{
-            status = 1;
-        }
-        return status;
-    }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-*/
 }

@@ -34,8 +34,8 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/getReservationsByUsername/{username}")
-    public List<Reservation> getReservationsByUsername(@PathVariable String username){
-        return userService.getReservationsByUsername(username);
-    }
+//    @GetMapping("/getReservationsByUsername/{username}")
+//    public List<Reservation> getReservationsByUsername(@PathVariable String username){
+//        return userService.getReservationsByUsername(username);
+//    }
 }

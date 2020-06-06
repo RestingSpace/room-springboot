@@ -86,25 +86,25 @@ public class UserDao {
         return result;
     }
 
-    public List<Reservation> getReservationsByUsername(String username) {
-        List<Reservation> result = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
-            Root<User> root = criteriaQuery.from(User.class);
-            criteriaQuery.select(root).where(builder.equal(root.get("username"), username));
-            result = session.createQuery(criteriaQuery).getSingleResult().getReservations();
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return result;
-    }
+//    public List<Reservation> getReservationsByUsername(String username) {
+//        List<Reservation> result = null;
+//        Session session = null;
+//        try {
+//            session = sessionFactory.openSession();
+//            session.beginTransaction();
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
+//            Root<User> root = criteriaQuery.from(User.class);
+//            criteriaQuery.select(root).where(builder.equal(root.get("username"), username));
+//            result = session.createQuery(criteriaQuery).getSingleResult().getReservations();
+//            session.getTransaction().commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (session != null) {
+//                session.close();
+//            }
+//        }
+//        return result;
+//    }
 }

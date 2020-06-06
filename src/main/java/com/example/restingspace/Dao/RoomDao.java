@@ -2,6 +2,7 @@ package com.example.restingspace.Dao;
 
 import com.example.restingspace.model.Reservation;
 import com.example.restingspace.model.Room;
+import com.example.restingspace.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class RoomDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = session.get(Room.class, rid);
+            Room room = (Room)session.get(Room.class, rid);
             session.delete(room);
             session.getTransaction().commit();
         }catch(Exception e){
@@ -70,13 +71,17 @@ public class RoomDao {
         }
     }
     public Room getRoom(int rid){
+        List<Room> result = null;
         Session session =null;
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = session.get(Room.class, rid);
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Room> criteriaQuery = builder.createQuery(Room.class);
+            Root<Room> root = criteriaQuery.from(Room.class);
+            criteriaQuery.select(root).where(builder.equal(root.get("rid"), rid));
+            result = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();
-            return room;
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -84,7 +89,7 @@ public class RoomDao {
                 session.close();
             }
         }
-        return null;
+        return (result == null || result.isEmpty()) ? null : result.get(0);
     }
 
     public List<Room> getAllRooms(){

@@ -26,8 +26,8 @@ public class UserService {
         return userDao.getAllUsers();
     }
 
-    public List<Reservation> getReservationsByUsername(String username){
-        return userDao.getReservationsByUsername(username);
-    }
+//    public List<Reservation> getReservationsByUsername(String username){
+//        return userDao.getReservationsByUsername(username);
+//    }
 
 }

@@ -3,13 +3,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name ="reservations")
-public class Reservation {
+public class Reservation implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
@@ -34,10 +36,12 @@ public class Reservation {
     //private int status;
     private double totalPrice;
 
+    // ***
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "room_id")
     private Room room;
 
+    // ***
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;

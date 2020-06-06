@@ -49,7 +49,7 @@ public class ReservationDao {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
             Root<User> root = criteriaQuery.from(User.class);
-            Join<User, Reservation> reserves = root.join("reservation");
+            Join<User, Reservation> reserves = root.join("reservations");
             criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("username"), username));
             reservations = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();
@@ -72,7 +72,7 @@ public class ReservationDao {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
             Root<Room> root = criteriaQuery.from(Room.class);
-            Join<Room, Reservation> reserves = root.join("reservation");
+            Join<Room, Reservation> reserves = root.join("reservations");
             criteriaQuery.select(reserves).where(criteriaBuilder.equal(root.get("rid"), roomid));
             reservations = session.createQuery(criteriaQuery).getResultList();
             session.getTransaction().commit();

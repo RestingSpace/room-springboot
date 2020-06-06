@@ -43,11 +43,12 @@ public class RoomController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("/delete/{rid}")
+    @DeleteMapping("/room/{rid}")
     public void deleteRoom(@PathVariable(value = "rid") int rid) {
         roomService.deleteRoom(rid);
     }
 
+    //***
     @PostMapping ("/room/updateRoom/{rid}")
     public void updateRoom(@ModelAttribute(value = "updateRoomObj") Room room,
                            @PathVariable(value = "rid") int rid) {

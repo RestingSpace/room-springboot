@@ -1,7 +1,10 @@
 package com.example.restingspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="room")
@@ -10,14 +13,26 @@ public class Room implements Serializable {
     private static final long serialVersionUID = 1910400635577541899L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long rid;
+    private int rid;
     private boolean isValid;
     private String location;
     private int price;
     private long size;
     private String roomImageURL;
 
-    public long getRid() {
+    @OneToMany(mappedBy = "room")
+    @JsonIgnore
+    private List<Reservation> reservations;
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public int getRid() {
         return rid;
     }
 

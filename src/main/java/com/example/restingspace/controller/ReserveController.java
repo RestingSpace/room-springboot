@@ -23,15 +23,15 @@ public class ReserveController {
     private RoomService roomService;
     @Autowired
     private UserService userService;
-
+/*
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path="/reserve")
     public @ResponseBody Reservation reserveRoom(@RequestBody Reservation reservation) {
         return reservationService.addReservation(reservation);
     }
-
+*/
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path="/reserve2")
+    @PostMapping(path="/reserve")
     public @ResponseBody Reservation reserveRoom(@RequestBody ReservationRequestBody reservationbody) {
         Reservation reservation = new Reservation();
         reservation.setStart_time(reservationbody.getStart_time());
@@ -44,17 +44,17 @@ public class ReserveController {
         reservation.setUser(user);
         return reservationService.addReservation(reservation);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(path="/cancelReserve/{reservationId}")
     public void cancelReservedRoom(@PathVariable(value="reservationId") long reservationId) {
         reservationService.deleteReservation(reservationId);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/reservations/{username}")
     public @ResponseBody List<Reservation> getReservationsbyU (@PathVariable(value="username") String username) {
         return reservationService.getAllReservations(username);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/reservationsbyRoom/{room_id}")
     public @ResponseBody
     List<Reservation> getReservationsbyR(@PathVariable(value="room_id") int room_id) {

@@ -20,7 +20,7 @@ public class Room implements Serializable {
     private long size;
     private String roomImageURL;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
     @JsonIgnore
     private List<Reservation> reservations;
 

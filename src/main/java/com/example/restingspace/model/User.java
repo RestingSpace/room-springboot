@@ -21,7 +21,7 @@ public class User implements Serializable {
     @OneToOne
     private BillingAddress billingAddress;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
     @JsonIgnore
     private List<Reservation> reservations;
 

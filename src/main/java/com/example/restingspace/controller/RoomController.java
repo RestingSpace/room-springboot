@@ -48,7 +48,8 @@ public class RoomController {
 
     @PostMapping("/room/updateRoom/{rid}")
     public ResponseEntity<Room> updateRoom(@RequestBody Room room, @PathVariable(value = "rid") int rid) {
-        roomService.updateRoom(room, rid);
+        room.setRid(rid);
+        roomService.updateRoom(room);
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 }

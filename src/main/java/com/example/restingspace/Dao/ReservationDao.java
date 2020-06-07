@@ -104,7 +104,7 @@ public class ReservationDao {
         return reservation;
     }
 
-    public void cancelReservation(long reservationId){
+    public void cancelReservation(int reservationId){
         Session session =null;
 
         try{

@@ -19,6 +19,8 @@ public class Room implements Serializable {
     private int price;
     private long size;
     private String roomImageURL;
+    private boolean food;
+    private boolean pets;
 
     @OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
     @JsonIgnore
@@ -32,8 +34,8 @@ public class Room implements Serializable {
         this.reservations = reservations;
     }
 
-    public int getRid() {
-        return rid;
+    public int getRid(int rid) {
+        return this.rid;
     }
 
     public void setRid(int rid) {
@@ -78,5 +80,21 @@ public class Room implements Serializable {
 
     public void setRoomImageURL(String roomImageURL) {
         this.roomImageURL = roomImageURL;
+    }
+
+    public boolean isPets() {
+        return pets;
+    }
+
+    public void setPets(boolean valid) {
+        this.pets = valid;
+    }
+
+    public boolean isFood() {
+        return food;
+    }
+
+    public void setFood(boolean valid) {
+        this.food = valid;
     }
 }

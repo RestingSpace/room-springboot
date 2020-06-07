@@ -31,13 +31,11 @@ public class RoomController {
 
     @PostMapping("/room/addRoom")
     public ResponseEntity<Object> addRoom(@RequestBody Room room) {
-        Integer rid = roomService.getAllRooms().size() + 1;
+        int rid = roomService.getAllRooms().size() + 1;
         room.setRid(rid);
-
         roomService.addRoom(room);
-
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand(room.getRid())
+                .buildAndExpand(room.getRid(rid))
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -48,11 +46,9 @@ public class RoomController {
         roomService.deleteRoom(rid);
     }
 
-    //***
-    @PostMapping ("/room/updateRoom/{rid}")
-    public void updateRoom(@ModelAttribute(value = "updateRoomObj") Room room,
-                           @PathVariable(value = "rid") int rid) {
-        room.setRid(rid);
-        roomService.updateRoom(room);
+    @PostMapping("/room/updateRoom/{rid}")
+    public ResponseEntity<Room> updateRoom(@RequestBody Room room, @PathVariable(value = "rid") int rid) {
+        roomService.updateRoom(room, rid);
+        return new ResponseEntity<>(room, HttpStatus.OK);
     }
 }

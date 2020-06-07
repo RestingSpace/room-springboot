@@ -15,7 +15,7 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "reservation_id")
-    private long id;
+    private int id;
 
     @Column(name="time_reserved_start")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")

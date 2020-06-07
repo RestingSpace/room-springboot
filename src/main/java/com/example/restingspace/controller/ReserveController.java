@@ -46,7 +46,7 @@ public class ReserveController {
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(path="/cancelReserve/{reservationId}")
-    public void cancelReservedRoom(@PathVariable(value="reservationId") long reservationId) {
+    public void cancelReservedRoom(@PathVariable(value="reservationId") int reservationId) {
         reservationService.deleteReservation(reservationId);
     }
     @CrossOrigin(origins = "http://localhost:3000")

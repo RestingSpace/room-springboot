@@ -54,15 +54,13 @@ public class RoomDao {
         }
     }
 
-    public void updateRoom(Room room, int rid){
+    public void updateRoom(Room room){
         Session session =null;
 
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
             session.saveOrUpdate(room);
-            Room oldRoom = session.get(Room.class, rid);
-            session.delete(oldRoom);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();

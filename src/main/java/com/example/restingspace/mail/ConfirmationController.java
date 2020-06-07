@@ -58,12 +58,13 @@ public class ConfirmationController {
 		User user = new User();
 		user.setFirstName("Dorothy");
 		user.setLastName("Lovegood");
-		user.setEmail("mochou113@163.com");
+		user.setEmail("mochou113@gmail.com");
 		
 		
 		try {
-			confirmationService.sendConfirmationWithAttachment(user, "Images/Sakura.jpg");
-			
+			//confirmationService.sendConfirmationWithAttachment(user, "src/main/resources/Sakura.jpg");
+			//confirmationService.sendConfirmationWithAttachment(user, "QRcode.png");
+			confirmationService.sendConfirmationWithAttachment(user, "QRcode.png");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

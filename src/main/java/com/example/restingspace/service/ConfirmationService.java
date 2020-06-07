@@ -5,6 +5,7 @@ import java.io.File;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -71,8 +72,11 @@ public class ConfirmationService {
 				+ "\n Thank you for your reservation on Resting-room. "
 				+ "Your reservation has been confirmed."
 				+ "Attached please find the QR code to enter your room");
-		FileSystemResource file = new FileSystemResource(new File(this.getClass().getClassLoader().getResource(filePath).toURI()));
-		mimeMessageHelper.addAttachment("Room QR code", file);
+		//FileSystemResource file = new FileSystemResource(new File(this.getClass().getClassLoader().getResource(filePath).toURI()));
+		//FileSystemResource file = new FileSystemResource(new File(filePath));
+		//mimeMessageHelper.addAttachment(file.getFilename(), file);
+		ClassPathResource classPathResource = new ClassPathResource(filePath);
+		mimeMessageHelper.addAttachment(classPathResource.getFilename(), classPathResource);
 		javaMailSender.send(mimeMessage);
 	}
 }

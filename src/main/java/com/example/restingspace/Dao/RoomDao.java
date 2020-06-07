@@ -42,7 +42,7 @@ public class RoomDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = (Room)session.get(Room.class, rid);
+            Room room = session.get(Room.class, rid);
             session.delete(room);
             session.getTransaction().commit();
         }catch(Exception e){
@@ -54,13 +54,15 @@ public class RoomDao {
         }
     }
 
-    public void updateRoom(Room room){
+    public void updateRoom(Room room, int rid){
         Session session =null;
 
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
             session.saveOrUpdate(room);
+            Room oldRoom = session.get(Room.class, rid);
+            session.delete(oldRoom);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();

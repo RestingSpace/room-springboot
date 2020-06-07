@@ -20,15 +20,15 @@ public class RoomService {
         return roomDao.getRoom(rid);
     }
 
-    public void deleteRoom(int roomId) {
-        roomDao.deleteRoom(roomId);
+    public void deleteRoom(int rid) {
+        roomDao.deleteRoom(rid);
     }
 
     public void addRoom(Room room){
         roomDao.addRoom(room);
     }
 
-    public void updateRoom(Room room){
-        roomDao.updateRoom(room);
+    public void updateRoom(Room room, int rid){
+        roomDao.updateRoom(room, rid);
     }
 }

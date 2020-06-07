@@ -28,7 +28,7 @@ public class RoomService {
         roomDao.addRoom(room);
     }
 
-    public void updateRoom(Room room, int rid){
-        roomDao.updateRoom(room, rid);
+    public void updateRoom(Room room){
+        roomDao.updateRoom(room);
     }
 }

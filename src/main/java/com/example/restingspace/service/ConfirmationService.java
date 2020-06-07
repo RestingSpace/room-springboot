@@ -47,7 +47,7 @@ public class ConfirmationService {
 
 		javaMailSender.send(mail);
 	}
-	/*public void sendConfirmationWithAttachment(Reservation reservation, String filePath) throws Exception {
+	public void sendConfirmationWithAttachment(Reservation reservation, String filePath) throws Exception {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 		mimeMessageHelper.setSubject("Your reservation is received!");
@@ -58,11 +58,11 @@ public class ConfirmationService {
 				+ "Your reservation from " + reservation.getStart_time() 
 				+ " to " + reservation.getEnd_time() + " has been confirmed."
 				+ "Attached please find the QR code to enter your room");
-		FileSystemResource file = new FileSystemResource(new File(filePath));
-		mimeMessageHelper.addAttachment("Room QR code", file);
+		ClassPathResource classPathResource = new ClassPathResource(filePath);
+		mimeMessageHelper.addAttachment(classPathResource.getFilename(), classPathResource);
 		javaMailSender.send(mimeMessage);
-	}*/
-	public void sendConfirmationWithAttachment(User user, String filePath) throws Exception {
+	}
+	/*public void sendConfirmationWithAttachment(User user, String filePath) throws Exception {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 		mimeMessageHelper.setSubject("Your reservation is received!");
@@ -78,5 +78,5 @@ public class ConfirmationService {
 		ClassPathResource classPathResource = new ClassPathResource(filePath);
 		mimeMessageHelper.addAttachment(classPathResource.getFilename(), classPathResource);
 		javaMailSender.send(mimeMessage);
-	}
+	}*/
 }

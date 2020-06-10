@@ -81,7 +81,8 @@ public class ConfirmationController {
 		Reservation reservation = reservationService.getReservationById(reservationId);
 		
 		try {
-			confirmationService.sendConfirmationWithAttachment(reservation, "QRcode.png");
+			//confirmationService.sendConfirmationWithAttachment(reservation, "QRcode.png");
+			confirmationService.sendConfirmationWithBufferedQR(reservation);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

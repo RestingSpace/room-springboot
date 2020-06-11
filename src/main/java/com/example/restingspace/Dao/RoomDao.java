@@ -42,7 +42,7 @@ public class RoomDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Room room = (Room)session.get(Room.class, rid);
+            Room room = session.get(Room.class, rid);
             session.delete(room);
             session.getTransaction().commit();
         }catch(Exception e){

@@ -76,17 +76,20 @@ public class ConfirmationController {
 	}*/
 	
 	@RequestMapping(value = "/send-email/{reservationId}")
-	public String sendConfirmationWithAttachment(@PathVariable(value="reservationId") int reservationId) {
+	public byte[] sendConfirmationWithAttachment(@PathVariable(value="reservationId") int reservationId) {
 		
 		Reservation reservation = reservationService.getReservationById(reservationId);
 		
 		try {
 			//confirmationService.sendConfirmationWithAttachment(reservation, "QRcode.png");
-			confirmationService.sendConfirmationWithBufferedQR(reservation);
+			 byte[] qrCode = confirmationService.sendConfirmationWithBufferedQR(reservation);
+			System.out.println("confirmation email sent");
+			return qrCode;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
-		return "confirmation email sent";
+		//return "confirmation email sent";
 	}
 }

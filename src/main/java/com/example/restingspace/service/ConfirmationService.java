@@ -104,7 +104,7 @@ public class ConfirmationService {
 		return timestampAsString;
 		//assertEquals("2020-06-10T07:00:00.0", timestampAsString);
 	}*/
-	public void sendConfirmationWithBufferedQR(Reservation reservation) throws Exception {
+	public byte[] sendConfirmationWithBufferedQR(Reservation reservation) throws Exception {
 		//String startTime = timestampToString(reservation.getStart_time());
 		//String endTime = timestampToString(reservation.getEnd_time());
 		String barcodeText = Long.toString(reservation.getId());
@@ -130,6 +130,7 @@ public class ConfirmationService {
 		multipart.addBodyPart(img);
 		mimeMessage.setContent(multipart);
 		javaMailSender.send(mimeMessage);
+		return qrCode;
 	}
 	public static byte[] generateQRCodeImage(String barcodeText) {
 	    try {

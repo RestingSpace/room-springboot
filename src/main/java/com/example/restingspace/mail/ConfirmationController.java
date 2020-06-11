@@ -1,16 +1,19 @@
 package com.example.restingspace.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.example.restingspace.model.Reservation;
 import com.example.restingspace.model.User;
 import com.example.restingspace.service.ConfirmationService;
 import com.example.restingspace.service.ReservationService;
 
+@EnableWebMvc
 @RestController
 public class ConfirmationController {
 	@Autowired
@@ -75,7 +78,7 @@ public class ConfirmationController {
 		return "confirmation email sent";
 	}*/
 	
-	@RequestMapping(value = "/send-email/{reservationId}")
+	@RequestMapping(value = "/send-email/{reservationId}", produces = MediaType.IMAGE_PNG_VALUE)
 	public byte[] sendConfirmationWithAttachment(@PathVariable(value="reservationId") int reservationId) {
 		
 		Reservation reservation = reservationService.getReservationById(reservationId);
